@@ -4,7 +4,11 @@ public class Constants {
 
 	private Constants() {
 	}
-
+	
+	public static final String COLLECTION_USER_TEEN = "user_teen";
+	
+	public static final String ID = "_id";
+	
 	public static final String STREET = "street";
 
 	public static final String CITY = "city";

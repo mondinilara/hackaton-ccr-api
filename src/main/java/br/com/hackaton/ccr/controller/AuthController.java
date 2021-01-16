@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hackaton.ccr.dto.UserTeenDto;
+import br.com.hackaton.ccr.exceptions.AppException;
+import br.com.hackaton.ccr.payload.JwtAuthenticationResponse;
 import br.com.hackaton.ccr.payload.LoginRequest;
-import br.com.hackaton.ccr.repository.UserTeen;
 import br.com.hackaton.ccr.service.UserTeenService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,8 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
-	// TODO: AUTENTICAÇÃO E ESQUECI SENHA
 
 	private UserTeenService userTeenService;
 
@@ -30,22 +29,29 @@ public class AuthController {
 	}
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		return ResponseEntity.ok().build();
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws AppException {
+		log.info("Autenticando usuário {}", loginRequest.getMail());
+
+		JwtAuthenticationResponse response = userTeenService.loginUserTeen(loginRequest);
+		
+		log.info("Usuário {} autenticado", loginRequest.getMail());
+		
+		return ResponseEntity.ok().body(response);
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody UserTeenDto userTeen) throws Exception {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody UserTeenDto userTeen) throws AppException {
 
-		log.info("Cadastrando usuário {}", userTeen);
+		log.info("Cadastrando usuário {}", userTeen.getMail());
 
-		this.userTeenService.insertUserTeen(userTeen);
+		this.userTeenService.registerUserTeen(userTeen);
 
-		log.info("Response ao cadastrar do usuário {} - {}", userTeen.getCpf(), userTeen.getMail());
+		log.info("Usuário {} - {} cadastrado com sucesso!", userTeen.getCpf(), userTeen.getMail());
 
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(userTeenService.loginUserTeen(new LoginRequest(userTeen.getMail(), userTeen.getPassword())));
 	}
 
+	// TODO
 	@PostMapping("/newpassword")
 	public ResponseEntity<?> newPassword(@Valid @RequestBody Object passwordRequest) {
 		log.info("Gerando nova senha para usuário {}", passwordRequest);
