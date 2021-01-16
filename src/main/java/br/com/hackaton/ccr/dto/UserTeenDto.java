@@ -4,26 +4,28 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.google.gson.annotations.SerializedName;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
-import br.com.hackaton.ccr.enums.EducationLevel;
+import br.com.hackaton.ccr.utils.Constants;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
-@Document
 @Data
+@Document(collection = Constants.COLLECTION_USER_TEEN)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class UserTeenDto {
 
-	private ObjectId id;
+	@SerializedName("_id")
+	private Long id;
 
 	@NotBlank
 	private String name;
@@ -53,7 +55,8 @@ public class UserTeenDto {
 	private List<String> interests;
 
 	@NotBlank
-	private EducationLevel educationLevel;
+	@SerializedName("education_level")
+	private String educationLevel;
 
 	@NotBlank
 	private String resume;
@@ -65,9 +68,11 @@ public class UserTeenDto {
 	private List<String> languages;
 
 	@NotBlank
+	@SerializedName("complementary_activities")
 	private List<String> complementaryActivities;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private LocalDate createdOn;
+	@SerializedName("created_on")
+	private LocalDateTime createdOn;
 
 }

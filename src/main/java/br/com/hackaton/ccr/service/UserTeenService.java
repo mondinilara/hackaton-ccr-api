@@ -4,17 +4,19 @@ import java.util.List;
 
 import br.com.hackaton.ccr.dto.UserTeenDto;
 import br.com.hackaton.ccr.exceptions.AppException;
+import br.com.hackaton.ccr.payload.JwtAuthenticationResponse;
+import br.com.hackaton.ccr.payload.LoginRequest;
 
 public interface UserTeenService {
 
-	void insertUserTeen(UserTeenDto userTeen) throws AppException;
-	
+	JwtAuthenticationResponse loginUserTeen(LoginRequest loginRequest) throws AppException;
+
+	void registerUserTeen(UserTeenDto userTeen) throws AppException;
+
 	void updateUserTeen(UserTeenDto userTeen) throws AppException;
 
-	UserTeenDto findUserTeenByCpf(String cpf);
+	UserTeenDto findUserTeenBy(String by, Object value);
 
-	List<UserTeenDto> listUserTeen();
-
-	List<UserTeenDto> findUserTeenByInteress();
+	List<UserTeenDto> listAllUsersTeen();
 
 }
