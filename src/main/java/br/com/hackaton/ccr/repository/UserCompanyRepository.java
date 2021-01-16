@@ -1,9 +1,9 @@
 package br.com.hackaton.ccr.repository;
 
-import br.com.hackaton.ccr.dto.UserCompanyDto;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserCompanyRepository {
+import br.com.hackaton.ccr.dto.UserCompany;
 
-	public void insertUserCompany(UserCompanyDto userCompany);
+public interface UserCompanyRepository extends MongoRepository<UserCompany, String> {
 
 }

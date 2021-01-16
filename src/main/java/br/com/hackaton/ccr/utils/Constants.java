@@ -6,5 +6,7 @@ public class Constants {
 	}
 
 	public static final String COLLECTION_USER_TEEN = "user_teen";
+	
+	public static final String COLLECTION_USER_COMPANY= "user_company";
 
 }

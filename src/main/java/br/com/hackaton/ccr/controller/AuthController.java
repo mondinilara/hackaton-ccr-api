@@ -56,7 +56,7 @@ public class AuthController {
 	public ResponseEntity<?> newPassword(@Valid @RequestBody Object passwordRequest) {
 		log.info("Gerando nova senha para usuário {}", passwordRequest);
 
-		// ApiResponse response = userService.forgotPassword(passwordRequest);
+		// ApiResponse response = userTeenService.forgotPassword(passwordRequest);
 
 		log.info("Response gerar nova senha do usuário {}: {}");
 

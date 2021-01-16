@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "b2f4f086-57dc-401c-a303-9cdf31f741b4",
+		"name": "Hackaton CCR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cadastro Teen",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var token = jsonData.token;\r",
+							"\r",
+							"    pm.globals.set(\"token_sv\", token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ciclano\",\r\n    \"birth\": \"2003-10-05\",\r\n    \"cpf\": \"47541437018\",\r\n    \"phones\": [\r\n        \"553499778569\",\r\n        \"553432778567\"\r\n    ],\r\n    \"mail\": \"ciclano@email.com\",\r\n    \"password\": \"1234\",\r\n    \"address\": {\r\n        \"street\": \"123 Fake St\",\r\n        \"city\": \"UBerlandia\",\r\n        \"state\": \"MA\",\r\n        \"number\": 10,\r\n        \"latitude\": -18.8370467,\r\n        \"longitude\": -48.1643659\r\n    },\r\n    \"interests\": [\r\n        \"engenharia\",\r\n        \"computação\"\r\n    ],\r\n    \"education_level\": \"Ensino Superior Completo\",\r\n    \"resume\": \"Faço sistemas de informação na UFU..............\",\r\n    \"objective\": \"Estágio na area da tecnologia\",\r\n    \"languages\": [\r\n        \"Ingles Intermediário\"\r\n    ],\r\n    \"complementary_activities\": [\r\n        \"Curso de Python\",\r\n        \"Curso de Java\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}/api/auth/signup",
+					"host": [
+						"{{servidor}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Teen",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var token = jsonData.access_token;\r",
+							"\r",
+							"    pm.globals.set(\"token_sv\", token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mail\": \"ciclano@email.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}/api/auth/signin",
+					"host": [
+						"{{servidor}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Teen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_sv}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ciclano de Tal\",\r\n    \"birth\": \"2003-10-05\",\r\n    \"cpf\": \"47541437018\",\r\n    \"phones\": [\r\n        \"553499778569\",\r\n        \"553432778567\"\r\n    ],\r\n    \"mail\": \"ciclano@email.com\",\r\n    \"password\": \"1234\",\r\n    \"address\": {\r\n        \"street\": \"123 Fake St\",\r\n        \"city\": \"UBerlandia\",\r\n        \"state\": \"MA\",\r\n        \"number\": 10,\r\n        \"latitude\": -18.8370467,\r\n        \"longitude\": -48.1643659\r\n    },\r\n    \"interests\": [\r\n        \"engenharia\",\r\n        \"computação\"\r\n    ],\r\n    \"education_level\": \"Ensino Superior Completo\",\r\n    \"resume\": \"Faço sistemas de informação na UFU..............\",\r\n    \"objective\": \"Estágio na area da tecnologia\",\r\n    \"languages\": [\r\n        \"Ingles Intermediário\"\r\n    ],\r\n    \"complementary_activities\": [\r\n        \"Curso de Python\",\r\n        \"Curso de Java\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}/user/teen/update",
+					"host": [
+						"{{servidor}}"
+					],
+					"path": [
+						"user",
+						"teen",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista usuarios teen",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_sv}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//doing",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}/user/teen/list",
+					"host": [
+						"{{servidor}}"
+					],
+					"path": [
+						"user",
+						"teen",
+						"list"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Faketon",
+							"disabled": true
+						},
+						{
+							"key": "interests",
+							"value": "desenvolvimento de software,administração",
+							"disabled": true
+						},
+						{
+							"key": "educationLevel",
+							"value": "Ensino Superior Completo",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca usuarios teen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_sv}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mail\": \"ciclano@email.com\",\r\n    \"cpf\": \"47541437018\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}/user/teen/find",
+					"host": [
+						"{{servidor}}"
+					],
+					"path": [
+						"user",
+						"teen",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastra empresa",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_sv}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ambev\",\r\n    \"cnpj\": \"25851005000159\",\r\n    \"image_base64\": \"data:image/webp;base64,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\",\r\n    \"jobs\": [\r\n        {\r\n            \"name\": \"Estágio em engenharia de produção\",\r\n            \"resume\": \"Nessa vaga estagiário terá contato com as técnicas de produção de bebida da empresa\",\r\n            \"prerequisite\": [\r\n                \"Cursando a partir do 5º curso de engenharia de produção\"\r\n            ],\r\n            \"salary\": \"R$ 1.000 + vale transporte\",\r\n            \"interests\": [\r\n                \"estagio\",\r\n                \"engenharia de produção\"\r\n            ],\r\n            \"address\": {\r\n                \"street\": \"Rod. Dom Gabriel Paulino Bueno Couto\",\r\n                \"city\": \"Jundiaí\",\r\n                \"state\": \"SP\",\r\n                \"number\": 198,\r\n                \"latitude\": -23.1769648,\r\n                \"longitude\": -46.9585517\r\n            }\r\n        },\r\n        {\r\n            \"name\": \"Menor Aprendiz\",\r\n            \"resume\": \"Nessa vaga o menor aprendiz terá contato com a parte adminstrativa da empresa\",\r\n            \"prerequisite\": [\r\n                \"Estar cursando ensino médio\",\r\n\t\t\t\t\"Ter entre 16 e 21 anos\"\r\n            ],\r\n            \"salary\": \"R$ 1.000 + vale transporte\",\r\n            \"interests\": [\r\n                \"jovem aprendiz\",\r\n                \"adminstração\",\r\n\t\t\t\t\"processos\"\r\n            ],\r\n            \"address\": {\r\n                \"street\": \"Rod. Dom Gabriel Paulino Bueno Couto\",\r\n                \"city\": \"Jundiaí\",\r\n                \"state\": \"SP\",\r\n                \"number\": 198,\r\n                \"latitude\": -23.1769648,\r\n                \"longitude\": -46.9585517\r\n            }\r\n        },\r\n\t\t{\r\n            \"name\": \"Trainee engenharia de produção\",\r\n            \"resume\": \"Nessa vaga o trainee terá contato com as técnicas de produção de bebida da empresa\",\r\n            \"prerequisite\": [\r\n                \"Estar no último período do curso de engenharia de produção ou ter formado em menos de 2 anos\",\r\n            ],\r\n            \"salary\": \"R$ 1.800 + vale transporte\",\r\n            \"interests\": [\r\n                \"trainee\",\r\n                \"engenharia de produção\"\r\n            ],\r\n            \"address\": {\r\n                \"street\": \"Rod. Dom Gabriel Paulino Bueno Couto\",\r\n                \"city\": \"Jundiaí\",\r\n                \"state\": \"SP\",\r\n                \"number\": 198,\r\n                \"latitude\": -23.1769648,\r\n                \"longitude\": -46.9585517\r\n            }\r\n        },\r\n\t\t{\r\n            \"name\": \"Trainee engenharia de química\",\r\n            \"resume\": \"Nessa vaga o trainee terá contato com as técnicas de fermentação da cerveja\",\r\n            \"prerequisite\": [\r\n                \"Estar no último período do curso de engenharia de química ou ter formado em menos de 2 anos\",\r\n            ],\r\n            \"salary\": \"R$ 1.800 + vale transporte\",\r\n            \"interests\": [\r\n                \"trainee\",\r\n                \"engenharia de química\"\r\n            ],\r\n            \"address\": {\r\n                \"street\": \"Rod. Dom Gabriel Paulino Bueno Couto\",\r\n                \"city\": \"Jundiaí\",\r\n                \"state\": \"SP\",\r\n                \"number\": 198,\r\n                \"latitude\": -23.1769648,\r\n                \"longitude\": -46.9585517\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}/user/company/register",
+					"host": [
+						"{{servidor}}"
+					],
+					"path": [
+						"user",
+						"company",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista usuarios empresa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_sv}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}/user/company/list",
+					"host": [
+						"{{servidor}}"
+					],
+					"path": [
+						"user",
+						"company",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
