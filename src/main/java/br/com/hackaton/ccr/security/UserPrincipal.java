@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.hackaton.ccr.dto.UserTeenDto;
+import br.com.hackaton.ccr.dto.UserTeen;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -32,7 +32,7 @@ public class UserPrincipal implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public static UserPrincipal create(UserTeenDto user) {
+	public static UserPrincipal create(UserTeen user) {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 
 		return new UserPrincipal(user.getId(), user.getName(), user.getMail(), user.getPassword(), authorities);
