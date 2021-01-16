@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class HackatonCcrApplication {
-	
+
 	@PostConstruct
 	void init() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
 	}
 
 	public static void main(String[] args) {

@@ -7,9 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.hackaton.ccr.dto.UserTeenDto;
+import br.com.hackaton.ccr.dto.UserTeen;
 import br.com.hackaton.ccr.repository.UserTeenRepository;
-import br.com.hackaton.ccr.utils.Constants;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -25,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// Let people login by email
-		UserTeenDto user = userRepository.findUserTeenBy(Constants.MAIL, email);
+		UserTeen user = userRepository.findFirstByMail(email);
 
 		if (user == null)
 			throw new UsernameNotFoundException("Usuário " + email + " não encontrado.");
@@ -36,8 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Transactional
 	public UserDetails loadUserById(Long id) {
-		// Let people login by email
-		UserTeenDto user = userRepository.findUserTeenBy(Constants.ID, id);
+		UserTeen user = userRepository.findFirstById(id);
 
 		if (user == null)
 			throw new UsernameNotFoundException("Usuário " + id + " não encontrado.");

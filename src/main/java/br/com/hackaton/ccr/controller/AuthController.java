@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hackaton.ccr.dto.UserTeenDto;
+import br.com.hackaton.ccr.dto.UserTeen;
 import br.com.hackaton.ccr.exceptions.AppException;
 import br.com.hackaton.ccr.payload.JwtAuthenticationResponse;
 import br.com.hackaton.ccr.payload.LoginRequest;
@@ -33,22 +33,22 @@ public class AuthController {
 		log.info("Autenticando usuário {}", loginRequest.getMail());
 
 		JwtAuthenticationResponse response = userTeenService.loginUserTeen(loginRequest);
-		
+
 		log.info("Usuário {} autenticado", loginRequest.getMail());
-		
+
 		return ResponseEntity.ok().body(response);
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody UserTeenDto userTeen) throws AppException {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody UserTeen userTeen) throws AppException {
 
 		log.info("Cadastrando usuário {}", userTeen.getMail());
 
 		this.userTeenService.registerUserTeen(userTeen);
 
-		log.info("Usuário {} - {} cadastrado com sucesso!", userTeen.getCpf(), userTeen.getMail());
+		log.info("Usuário {} cadastrado com sucesso!", userTeen.getMail());
 
-		return ResponseEntity.ok().body(userTeenService.loginUserTeen(new LoginRequest(userTeen.getMail(), userTeen.getPassword())));
+		return ResponseEntity.ok().build();
 	}
 
 	// TODO

@@ -1,18 +1,19 @@
 package br.com.hackaton.ccr.repository;
 
-import java.util.List;
+import br.com.hackaton.ccr.dto.UserTeen;
 
-import br.com.hackaton.ccr.dto.UserTeenDto;
-import br.com.hackaton.ccr.exceptions.AppException;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserTeenRepository {
+public interface UserTeenRepository extends MongoRepository<UserTeen, String> {
 
-	void insertUserTeen(UserTeenDto userTeen) throws AppException;
+	UserTeen findFirstByCpf(String cpf);
 
-	void updateUserTeen(UserTeenDto userTeen) throws AppException;
+	UserTeen findFirstByMail(String mail);
 
-	UserTeenDto findUserTeenBy(String by, Object value);
-
-	List<UserTeenDto> listAllUsersTeen();
+	UserTeen findFirstById(Long id);
+	
+	UserTeen findFirstByCpfOrMail(String cpf, String mail);
+	
+	UserTeen findFirstByCpfAndMail(String cpf, String mail);
 
 }
